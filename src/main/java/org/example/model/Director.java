@@ -1,21 +1,23 @@
 package org.example.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Entity
 @Table(name = "director")
 public class Director {
-
     @Id()
     @Column(name = "director_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int director_id;
 
     @OneToMany(mappedBy = "owner")
+    @Getter
+    @Setter
     private List<Movie> movies;
 
     @Column(name = "name")
@@ -54,5 +56,14 @@ public class Director {
     public Director(String name, int age) {
         this.name = name;
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Director{" +
+                "director_id=" + director_id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

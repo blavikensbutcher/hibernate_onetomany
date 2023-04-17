@@ -2,26 +2,27 @@ package org.example.model;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "movie")
 public class Movie {
-
     @Id
-    @Column(name = "movie_id" )
+    @Column(name = "movie_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int movie_id;
 
     @ManyToOne
     @JoinColumn(name = "director_id", referencedColumnName = "director_id")
+    @Getter
+    @Setter
     private Director owner;
 
     @Column(name = "name")
     private String name;
     @Column(name = "year_of_production")
     private int year_of_production;
-
-
 
     public int getMovie_id() {
         return movie_id;
@@ -53,6 +54,12 @@ public class Movie {
     public Movie(String name, int year_of_production) {
         this.name = name;
         this.year_of_production = year_of_production;
+    }
+
+    public Movie(String name, int year_of_production, Director owner) {
+        this.name = name;
+        this.year_of_production = year_of_production;
+        this.owner = owner;
     }
 
     @Override
